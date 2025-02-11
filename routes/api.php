@@ -31,3 +31,5 @@ Route::delete("/hapus_film/{id}",[MovieController::class,"hapus_film"]);
 Route::put("/update_category/{id}",[MovieController::class,"update_category"]);
 Route::delete("/hapus_category/{id}",[MovieController::class,"hapus_category"]);
 Route::get("/get_detail_category/{id}",[MovieController::class,"getDetailCategory"]);
+Route::post("/login",[AuthController::class,"login"]);
+Route::get("/logout",[AuthController::class,"logout"]);

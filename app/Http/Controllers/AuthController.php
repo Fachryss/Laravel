@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -31,8 +32,7 @@ class AuthController extends Controller
         $data = [
             'name'=>$request->get('name'),
             'email'=>$request->get('email'),
-            // 'password'=>Hash::make($request->get('password')), hash untuk 
-            'password'=>$request->get('password'),
+            'password'=>Hash::make($request->get('password')),
             'role'=>$request->get('role'),
             "address"=>$request->get("address"),
             "birthday"=>$request->get("birthday"),
@@ -133,6 +133,50 @@ class AuthController extends Controller
             ]);
         }
     }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors(),
+            ]);
+        }
+        $credentials = $request->only('email', 'password');
+        $token = Auth::guard('api')->attempt($credentials);
+        if (!$token) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Unauthorized',
+            ], 401);
+        }
+
+
+        $user = Auth::guard('api')->user();
+        return response()->json([
+                'status' => true,
+                'message'=>'Sukses login',
+                'data'=>$user,
+                'authorisation' => [
+                    'token' => $token,
+                    'type' => 'bearer',
+                ]
+            ]);
+    }
+    public function logout()
+    {
+        Auth::guard('api')->logout();
+        return response()->json([
+            'status' => true,
+            'message' => 'Sukses logout',
+        ]);
+    }
+
+
 
 
 
