@@ -31,3 +31,8 @@
 ![image](https://github.com/user-attachments/assets/23b9c13a-2f7f-4651-a73c-4b3fb3d755cc)
 ![image](https://github.com/user-attachments/assets/88db6bc8-d44a-4da5-bf74-70e886d1b453)
 
+## Login & Log Out Laravel
+![image](https://github.com/user-attachments/assets/e42fcad3-b7d9-4b86-89f0-449cd2c676fb)
+![image](https://github.com/user-attachments/assets/136b7561-c2fe-4501-a263-c79d2a97e743)
+
+
